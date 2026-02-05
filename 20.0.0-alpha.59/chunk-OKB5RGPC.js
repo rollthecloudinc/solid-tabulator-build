@@ -1,0 +1,35 @@
+import { a as f } from "@nf-internal/chunk-PP4WNYUO";
+import { d } from "@nf-internal/chunk-KQGCPFC3";
+import { z as m } from "@nf-internal/chunk-STIBVO4O";
+import { InjectionToken as C } from "@angular/core";
+var w = class extends f {
+    _data;
+    constructor(t) { super(), this._data = t; }
+    connect() { return d(this._data) ? this._data : m(this._data); }
+    disconnect() { }
+}, o = (function (i) { return i[i.REPLACED = 0] = "REPLACED", i[i.INSERTED = 1] = "INSERTED", i[i.MOVED = 2] = "MOVED", i[i.REMOVED = 3] = "REMOVED", i; })(o || {}), T = new C("_ViewRepeater"), D = class {
+    viewCacheSize = 20;
+    _viewCache = [];
+    applyChanges(t, c, s, E, h) { t.forEachOperation((e, _, n) => { let a, l; if (e.previousIndex == null) {
+        let V = () => s(e, _, n);
+        a = this._insertView(V, n, c, E(e)), l = a ? o.INSERTED : o.REPLACED;
+    }
+    else
+        n == null ? (this._detachAndCacheView(_, c), l = o.REMOVED) : (a = this._moveView(_, n, c, E(e)), l = o.MOVED); h && h({ context: a?.context, operation: l, record: e }); }); }
+    detach() { for (let t of this._viewCache)
+        t.destroy(); this._viewCache = []; }
+    _insertView(t, c, s, E) { let h = this._insertViewFromCache(c, s); if (h) {
+        h.context.$implicit = E;
+        return;
+    } let e = t(); return s.createEmbeddedView(e.templateRef, e.context, e.index); }
+    _detachAndCacheView(t, c) { let s = c.detach(t); this._maybeCacheView(s, c); }
+    _moveView(t, c, s, E) { let h = s.get(t); return s.move(h, c), h.context.$implicit = E, h; }
+    _maybeCacheView(t, c) { if (this._viewCache.length < this.viewCacheSize)
+        this._viewCache.push(t);
+    else {
+        let s = c.indexOf(t);
+        s === -1 ? t.destroy() : c.remove(s);
+    } }
+    _insertViewFromCache(t, c) { let s = this._viewCache.pop(); return s && c.insert(s, t), s || null; }
+};
+export { w as a, o as b, T as c, D as d };
